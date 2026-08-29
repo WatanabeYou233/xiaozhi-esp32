@@ -1,0 +1,13 @@
+{
+    "manufacturer": "movecall",
+    "type": "movecall-moji2-esp32s3",
+    "target": "esp32s3",
+    "builds": [
+        {
+            "name": "movecall-moji2-esp32s3",
+            "sdkconfig_append": [
+                "CONFIG_FREERTOS_USE_TICKLESS_IDLE=y"
+            ]
+        }
+    ]
+}

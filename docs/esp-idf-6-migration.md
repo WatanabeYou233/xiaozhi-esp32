@@ -188,6 +188,7 @@ In the table below, "Board" is the source directory and "Build variant" is the f
 | `esp32s3` | `mixgo-nova` | `mixgo-nova` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |
 | `esp32s3` | `movecall-cuican-esp32s3` | `movecall-cuican-esp32s3` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |
 | `esp32s3` | `movecall-moji-esp32s3` | `movecall-moji-esp32s3` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |
+| `esp32s3` | `movecall/moji2-esp32s3` | `movecall-moji2-esp32s3` | ✅ Full build passed | IDF 6.0.2 local `idf.py build` | Hardware smoke/peripheral regression pending |
 | `esp32s3` | `nulllab-ai-vox-v3` | `nulllab-ai-vox-v3` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |
 | `esp32s3` | `otto-robot` | `otto-robot` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |
 | `esp32s3` | `quandong-s3-dev` | `quandong-s3-dev` | ✅ Full build passed | GitHub Actions IDF 6.0.1 full build | Hardware smoke/peripheral regression pending |

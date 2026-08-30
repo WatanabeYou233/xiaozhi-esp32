@@ -225,7 +225,7 @@ private:
     AdcBatteryMonitor* adc_battery_monitor_ = nullptr;
 
     void InitializeBatteryMonitor() {
-        adc_battery_monitor_ = new AdcBatteryMonitor(ADC_UNIT_1, ADC_CHANNEL_3, 5100000, 5100000, GPIO_NUM_NC);
+        adc_battery_monitor_ = new AdcBatteryMonitor(ADC_UNIT_1, ADC_CHANNEL_9, 5100000, 5100000, GPIO_NUM_NC);
         adc_battery_monitor_->OnChargingStatusChanged([this](bool is_charging) {
             if (power_save_timer_ != nullptr){
                 if (is_charging) {

@@ -3,13 +3,19 @@
 
 // Movecall Moji 2 (ESP32-S3) configuration
 //
-// ESP32-S3-WROOM-1 (N16R8: 16MB flash + 8MB Octal PSRAM) pin budget:
-//   - GPIO26-37: reserved (internal flash & Octal PSRAM, GPIO35-37 are
-//     connected to the Octal SPI PSRAM on R8 modules)
-//   - GPIO19/20: reserved (USB D-/D+)
-//   - GPIO43/44: reserved (UART0 TXD0/RXD0, flashing & logs)
-//   - GPIO3/45/46: strapping pins, keep unused
-//   - GPIO39-42: left free for JTAG debugging
+// ESP32-S3-WROOM-1 (N16R8: 16MB flash + 8MB Octal PSRAM)
+//
+// Physical pin mapping (C5 PIN → S3 PIN):
+//   C5 PIN1~14 = S3 PIN1~14   (same position)
+//   C5 PIN15~29 = S3 PIN27~41 (S3 has extra PIN15~26)
+//   GPIO26~37: internal Flash & Octal PSRAM, not available
+//   GPIO19/20: USB D-/D+
+//   GPIO43/44: UART0 TXD0/RXD0, reused as I2S BCLK/DIN (boot ROM briefly
+//     outputs on TXD0, but ES8311 is high-Z → harmless)
+//   GPIO45/46: strapping pins, keep unused
+//
+// 16 signals keep the same PCB trace; 3 need rerouting (PA, BAT, SCL)
+// due to Octal PSRAM (GPIO35~37) on R8 modules.
 
 #include <driver/gpio.h>
 
@@ -21,18 +27,18 @@ enum PowerSupply {
 #define AUDIO_INPUT_SAMPLE_RATE  24000
 #define AUDIO_OUTPUT_SAMPLE_RATE 24000
 
-#define AUDIO_I2S_GPIO_MCLK         GPIO_NUM_14
-#define AUDIO_I2S_GPIO_WS           GPIO_NUM_16
-#define AUDIO_I2S_GPIO_BCLK         GPIO_NUM_15
-#define AUDIO_I2S_GPIO_DIN          GPIO_NUM_18
-#define AUDIO_I2S_GPIO_DOUT         GPIO_NUM_17
+#define AUDIO_I2S_GPIO_MCLK         GPIO_NUM_2
+#define AUDIO_I2S_GPIO_WS           GPIO_NUM_42
+#define AUDIO_I2S_GPIO_BCLK         GPIO_NUM_43
+#define AUDIO_I2S_GPIO_DIN          GPIO_NUM_44
+#define AUDIO_I2S_GPIO_DOUT         GPIO_NUM_40
 
-#define AUDIO_CODEC_PA_PIN          GPIO_NUM_5
+#define AUDIO_CODEC_PA_PIN          GPIO_NUM_9
 #define AUDIO_CODEC_I2C_SDA_PIN     GPIO_NUM_1
-#define AUDIO_CODEC_I2C_SCL_PIN     GPIO_NUM_2
+#define AUDIO_CODEC_I2C_SCL_PIN     GPIO_NUM_39
 #define AUDIO_CODEC_ES8311_ADDR     ES8311_CODEC_DEFAULT_ADDR
 
-#define BUILTIN_LED_GPIO            GPIO_NUM_21
+#define BUILTIN_LED_GPIO            GPIO_NUM_8
 #define BOOT_BUTTON_GPIO            GPIO_NUM_0
 
 #define DISPLAY_WIDTH               360
@@ -44,7 +50,7 @@ enum PowerSupply {
 #define DISPLAY_OFFSET_X            0
 #define DISPLAY_OFFSET_Y            0
 
-#define DISPLAY_BACKLIGHT_PIN       GPIO_NUM_13
+#define DISPLAY_BACKLIGHT_PIN       GPIO_NUM_4
 #define DISPLAY_BACKLIGHT_OUTPUT_INVERT false
 
 #define DISPLAY_QSPI_H_RES           (360)
@@ -52,13 +58,13 @@ enum PowerSupply {
 #define DISPLAY_QSPI_BIT_PER_PIXEL   (16)
 
 #define DISPLAY_QSPI_HOST           SPI2_HOST
-#define DISPLAY_QSPI_SCLK_PIN       GPIO_NUM_12
-#define DISPLAY_QSPI_RESET_PIN      GPIO_NUM_11
-#define DISPLAY_QSPI_D0_PIN         GPIO_NUM_9
-#define DISPLAY_QSPI_D1_PIN         GPIO_NUM_8
-#define DISPLAY_QSPI_D2_PIN         GPIO_NUM_7
-#define DISPLAY_QSPI_D3_PIN         GPIO_NUM_6
-#define DISPLAY_QSPI_CS_PIN         GPIO_NUM_10
+#define DISPLAY_QSPI_SCLK_PIN       GPIO_NUM_6
+#define DISPLAY_QSPI_RESET_PIN      GPIO_NUM_7
+#define DISPLAY_QSPI_D0_PIN         GPIO_NUM_18
+#define DISPLAY_QSPI_D1_PIN         GPIO_NUM_17
+#define DISPLAY_QSPI_D2_PIN         GPIO_NUM_16
+#define DISPLAY_QSPI_D3_PIN         GPIO_NUM_15
+#define DISPLAY_QSPI_CS_PIN         GPIO_NUM_5
 
 
 #define DISPLAY_SPI_SCLK_HZ         (40 * 1000 * 1000)
